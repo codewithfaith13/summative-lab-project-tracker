@@ -1,37 +1,19 @@
 # Project Tracker CLI
 
-This is a command line app I built in Python to manage users, projects and tasks. The data is saved in a JSON file so it is still there when you run the program again.
+## Description
+
+This is a command-line app I made in Python to manage users, projects and tasks. A user can have many projects, and a project can have many tasks. The data is saved in a JSON file so it is not lost when the program closes.
 
 ## Features
 
 - Add and list users
 - Add projects to a user
-- List all projects or just one user's projects
+- List all projects or one user's projects
 - Search projects by keyword
 - Add tasks to a project and assign them to a user
 - Mark tasks as complete
 
-## How it works
-
-- **Classes:** I made `User`, `Project` and `Task` classes. `User` inherits from a `Person` class, which holds the name and email.
-- **Relationships:** one user has many projects, and one project has many tasks. A task can be assigned to any user.
-- **Properties:** I used `@property` and setters to check the data, for example a name can't be empty and the status can only be `pending` or `complete`.
-- **Class attributes:** each class has an ID counter so every object gets its own ID.
-- **Saving data:** users, projects and tasks are saved to `data/data.json` and loaded again when the program starts. If the file is missing it starts empty, and if the file is broken it shows an error instead of crashing.
-- **CLI:** `main.py` uses `argparse` with a subcommand for each action.
-- **Packages:** `rich` (tables) and `python-dateutil` (dates).
-
-## Folder structure
-
-```
-main.py      CLI entry point
-models/      the classes
-utils/       saving/loading, dates, printing tables
-data/        the JSON file
-tests/       pytest tests
-```
-
-## Setup
+## Installation
 
 You need Python 3.10 or newer.
 
@@ -43,7 +25,11 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## How to run
+On Windows, use `venv\Scripts\activate` instead of the `source` line.
+
+Packages used: `rich` (tables), `python-dateutil` (dates) and `pytest` (tests).
+
+## Usage
 
 ```
 python3 main.py add-user --name "Alex" --email alex@example.com
@@ -57,18 +43,39 @@ python3 main.py search-projects --keyword "cli"
 python3 main.py list-tasks --project "CLI Tool"
 ```
 
-Add `--help` to any command to see its options, like `python3 main.py add-task --help`.
+Add `--help` to any command to see its options, for example `python3 main.py add-task --help`.
 
-## Tests
+## Project Structure
+
+```
+main.py      - CLI entry point (argparse)
+models/      - classes: Person, User, Project, Task, Tracker
+utils/       - saving/loading the file, dates, printing tables
+data/        - JSON file where the data is saved
+tests/       - pytest tests
+requirements.txt
+```
+
+## How it works
+
+- `User` inherits from `Person`.
+- Each user has a list of projects, and each project has a list of tasks.
+- Properties and setters check the data (for example a name cannot be empty).
+- Everything is saved to `data/data.json` and loaded again when the program starts.
+- If the file is missing it starts empty. If it is broken the program shows an error.
+
+## Testing
 
 ```
 pytest
 ```
 
-The tests cover the classes, saving/loading the file, and the CLI commands.
+## Known Issues
 
-## Known issues
+- You cannot delete or edit users, projects or tasks yet.
+- Names and titles must be unique.
+- If `data/data.json` is corrupted, you have to fix or delete it.
 
-- You can't delete or edit users, projects or tasks yet.
-- Names and titles have to be unique.
-- If `data/data.json` gets corrupted you have to fix or delete it.
+## Author
+
+Faith Cherotich (codewithfaith13)
